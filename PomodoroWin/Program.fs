@@ -8,10 +8,9 @@ let is_numeric a = fst (System.Int32.TryParse(a))
 
 [<EntryPoint>]
 let main argv = 
-    let isArgValidMinutes=Seq.exists is_numeric argv
 
     let minutesToGo = 
-        if isArgValidMinutes then
+        if (Seq.isEmpty argv)=false && is_numeric (Seq.head argv) then
             System.Int32.Parse(Seq.head argv)
         else
             25
