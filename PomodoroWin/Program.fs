@@ -1,6 +1,7 @@
 ﻿// Learn more about F# at http://fsharp.org
 // See the 'F# Tutorial' project for more help.
 open Microsoft.Lync.Controls
+open System.Media
 open LyncSDK
 
 let is_numeric a = fst (System.Int32.TryParse(a))
@@ -16,7 +17,7 @@ let main argv =
             25
 
     let doNotDisturbMe forMinutes =
-        
+
         setLyncStatus dndLyncState
          
         let event = new System.Threading.AutoResetEvent(false)
@@ -28,6 +29,7 @@ let main argv =
         event.WaitOne() |> ignore
 
         setLyncStatus ContactAvailability.Free
+        SystemSounds.Beep.Play();
     
     doNotDisturbMe minutesToGo
     0 // return an integer exit code
