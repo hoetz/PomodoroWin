@@ -3,15 +3,22 @@
 open Microsoft.Lync.Controls
 open System.Media
 open LyncSDK
+open System
 
 let is_numeric a = fst (System.Int32.TryParse(a))
 
 
 let playBell times = 
-        let player=new System.Media.SoundPlayer()
-        player.SoundLocation <- "bell.wav"
+        let a = System.Reflection.Assembly.GetExecutingAssembly()
+        let wavStream = a.GetManifestResourceStream("bell.wav")
+        let player=new System.Media.SoundPlayer(wavStream)
+
         for i=1 to times do
-            player.PlaySync()
+            try
+                player.PlaySync()
+            with
+                | :? System.IO.FileNotFoundException as ex -> printfn "Warning: Sound file not found"
+
 
 [<EntryPoint>]
 let main argv = 
@@ -36,6 +43,6 @@ let main argv =
 
         playBell 2
         setLyncStatus ContactAvailability.Free
-    
+
     doNotDisturbMe minutesToGo
     0 // return an integer exit code
