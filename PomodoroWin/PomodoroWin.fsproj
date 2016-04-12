@@ -58,6 +58,9 @@
     <Compile Include="LyncSDK.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
+    <Content Include="bell.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

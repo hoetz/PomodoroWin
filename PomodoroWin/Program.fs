@@ -6,6 +6,13 @@ open LyncSDK
 
 let is_numeric a = fst (System.Int32.TryParse(a))
 
+
+let playBell times = 
+        let player=new System.Media.SoundPlayer()
+        player.SoundLocation <- "bell.wav"
+        for i=1 to times do
+            player.PlaySync()
+
 [<EntryPoint>]
 let main argv = 
 
@@ -27,8 +34,8 @@ let main argv =
         printfn "You're dnd for %i minutes now. Started at %s" forMinutes now
         event.WaitOne() |> ignore
 
+        playBell 2
         setLyncStatus ContactAvailability.Free
-        SystemSounds.Beep.Play();
     
     doNotDisturbMe minutesToGo
     0 // return an integer exit code
